@@ -47,7 +47,11 @@ async (req, res) => {
         const esValido = await bcrypt.compare(password, usuario.password);
         if (!esValido) return res.status(401).json({ error: 'Credenciales incorrectas' });
 
-        const token = jwt.sign({ id: usuario._id }, 'secreto123', { expiresIn: '1h' });
+        const token = jwt.sign(
+            { id: usuario._id },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
         res.json({ token });
     } catch (err) {
         res.status(500).json({ error: 'Error al iniciar sesión' });
