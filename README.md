@@ -1,10 +1,10 @@
-# 📝 CRUD de Tareas con Node.js, Express y MongoDB + Autenticación JWT
+# CRUD de Tareas con Node.js, Express y MongoDB + Autenticación JWT
 
 Este proyecto es una **API RESTful** para la gestión de tareas. Permite **crear**, **leer**, **editar** y **eliminar** tareas, con rutas protegidas mediante **autenticación con JWT**. Está construido usando Node.js, Express y MongoDB.
 
 ---
 
-## 🚀 Tecnologías usadas
+## Tecnologías usadas
 
 - **Node.js**
 - **Express.js**
@@ -16,13 +16,13 @@ Este proyecto es una **API RESTful** para la gestión de tareas. Permite **crear
 
 ---
 
-## 📂 Estructura del proyecto
+## Estructura del proyecto
 
 crud-backend/ ├── index.js # Servidor principal ├── .env # Variables de entorno ├── models/ │ ├── tarea.model.js # Modelo de Tarea │ └── usuario.model.js # Modelo de Usuario ├── routes/ │ ├── tarea.routes.js # Rutas protegidas de tareas │ └── auth.routes.js # Rutas públicas de autenticación ├── middleware/ │ ├── authMiddleware.js # Middleware para proteger rutas │ └── errorHandler.js # Middleware para errores ├── package.json └── README.md
 
 ---
 
-## 🛠️ Instalación local
+## Instalación 
 
 1. Clonar el repositorio:
 ```bash
@@ -51,8 +51,8 @@ Iniciar el servidor:
 
 ```bash
 npm start
-🔐 Autenticación (JWT)
-🔸 Registro
+Autenticación (JWT)
+Registro
 POST /auth/register
 ```
 
@@ -62,7 +62,7 @@ json
   "email": "usuario@email.com",
   "password": "123456"
 }
-🔸 Login
+Login
 POST /auth/login
 ```
 
@@ -72,7 +72,7 @@ json
   "email": "usuario@email.com",
   "password": "123456"
 }
-🔁 Devuelve un token JWT:\
+Devuelve un token JWT:\
 ```
 
 ```bash
@@ -80,7 +80,7 @@ json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI..."
 }
-📋 Endpoints de Tareas (protegidos)
+Endpoints de Tareas (protegidos)
 Todas las rutas requieren el token en el header:
 ```
 
@@ -104,29 +104,29 @@ json
 }'
 ```
 
-🎯 Funcionalidades
+Funcionalidades
 
-✅ Registro/Login de usuarios
+Registro/Login de usuarios
 
-✅ Autenticación con JWT
+Autenticación con JWT
 
-✅ CRUD completo de tareas
+CRUD completo de tareas
 
-✅ Middleware de errores
+Middleware de errores
 
-✅ Rutas protegidas
+Rutas protegidas
 
-✅ Validación de datos
+Validación de datos
 
-✅ Listo para deploy
+Listo para deploy
 
-🧑‍💻 Autor
+Autor
 
-jnlcrckn – Desarrollador Backend Jr.
+Juan Carlos Chavez – Desarrollador Backend Jr.
 
-📧 Contacto: jcczcom@gmail.com
+Contacto: jcczcom@gmail.com
 
-🌐 LinkedIn https://www.linkedin.com/in/jnlcrckn/
+LinkedIn https://www.linkedin.com/in/karolu5/
 
 
 
