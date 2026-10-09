@@ -1,132 +1,154 @@
-# CRUD de Tareas con Node.js, Express y MongoDB + Autenticación JWT
+# Task Management REST API
 
-Este proyecto es una **API RESTful** para la gestión de tareas. Permite **crear**, **leer**, **editar** y **eliminar** tareas, con rutas protegidas mediante **autenticación con JWT**. Está construido usando Node.js, Express y MongoDB.
+API REST para la gestión de tareas, desarrollada con **Node.js, Express y MongoDB**. Incluye registro e inicio de sesión de usuarios, autenticación mediante JSON Web Tokens (JWT) y operaciones CRUD sobre tareas.
 
----
+## Tecnologías
 
-## Tecnologías usadas
+- Node.js y Express
+- MongoDB y Mongoose
+- JSON Web Tokens (JWT)
+- bcrypt para el hash de contraseñas
+- express-validator para validar datos
+- dotenv para gestionar variables de entorno
 
-- **Node.js**
-- **Express.js**
-- **MongoDB + Mongoose**
-- **bcrypt** (hash de contraseñas)
-- **jsonwebtoken (JWT)** (autenticación)
-- **dotenv** (variables de entorno)
-- **express-validator** (validaciones)
+## Funcionalidades
 
----
+- Registro de usuarios con validación de correo electrónico y contraseña.
+- Inicio de sesión mediante correo electrónico y contraseña.
+- Generación de tokens JWT con expiración de una hora.
+- Protección de rutas mediante middleware de autenticación.
+- Creación, consulta, actualización y eliminación de tareas.
+- Almacenamiento de usuarios y tareas en MongoDB.
+- Manejo de errores HTTP.
 
-## Estructura del proyecto
+## Instalación
 
-crud-backend/ ├── index.js # Servidor principal ├── .env # Variables de entorno ├── models/ │ ├── tarea.model.js # Modelo de Tarea │ └── usuario.model.js # Modelo de Usuario ├── routes/ │ ├── tarea.routes.js # Rutas protegidas de tareas │ └── auth.routes.js # Rutas públicas de autenticación ├── middleware/ │ ├── authMiddleware.js # Middleware para proteger rutas │ └── errorHandler.js # Middleware para errores ├── package.json └── README.md
+**1. Clonar el repositorio**
 
----
-
-## Instalación 
-
-1. Clonar el repositorio:
 ```bash
-git clone https://github.com/TU_USUARIO/crud-node-mongo.git
-cd crud-node-mongo
-Instalar dependencias:
+git clone https://github.com/karolu5/CRUD-node-mongo.git
+cd CRUD-node-mongo
 ```
+
+**2. Instalar dependencias**
 
 ```bash
 npm install
-Configurar archivo .env:
 ```
 
-```bash
-env
+**3. Configurar variables de entorno**
+
+Crear un archivo `.env` en la raíz del proyecto:
+
+```dotenv
 MONGO_URI=mongodb://localhost:27017/tareasBD
-JWT_SECRET=secreto123
+JWT_SECRET=tu_clave_aleatoria_segura
 PORT=3000
-Ejecutar MongoDB en segundo plano:
 ```
 
-```bash
-mongod
-Iniciar el servidor:
-```
+Reemplazar `JWT_SECRET` por una clave aleatoria segura. No compartir ni subir el archivo `.env` al repositorio.
+
+**4. Iniciar MongoDB**
+
+Asegurarse de que el servidor MongoDB esté ejecutándose y sea accesible mediante `MONGO_URI`.
+
+**5. Iniciar la aplicación**
 
 ```bash
 npm start
-Autenticación (JWT)
-Registro
-POST /auth/register
 ```
 
-```bash
-json
+El servidor utiliza el puerto 3000 de forma predeterminada.
+
+## Endpoints de autenticación
+
+### Registrar usuario
+
+`POST /auth/register`
+
+```json
 {
-  "email": "usuario@email.com",
-  "password": "123456"
+  "email": "usuario@ejemplo.com",
+  "password": "contraseña123"
 }
-Login
-POST /auth/login
 ```
 
-```bash
-json
+La contraseña debe contener al menos seis caracteres.
+
+### Iniciar sesión
+
+`POST /auth/login`
+
+```json
 {
-  "email": "usuario@email.com",
-  "password": "123456"
+  "email": "usuario@ejemplo.com",
+  "password": "contraseña123"
 }
-Devuelve un token JWT:\
 ```
 
-```bash
-json
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI..."
-}
-Endpoints de Tareas (protegidos)
-Todas las rutas requieren el token en el header:
-```
+La respuesta incluye un token JWT que se utiliza para acceder a las rutas protegidas.
 
-```bash
-http
+## Endpoints de tareas
+
+Todas las rutas de tareas requieren autenticación mediante el encabezado:
+
+```http
 Authorization: Bearer TU_TOKEN
 ```
 
-Método	Ruta	Descripción
-GET	/tareas	Obtener todas las tareas
-POST	/tareas	Crear nueva tarea
-GET	/tareas/:id	Obtener tarea por ID
-PUT	/tareas/:id	Actualizar tarea
-DELETE	/tareas/:id	Eliminar tarea
-Ejemplo de body para POST/PUT:
+| Método | Ruta | Descripción |
+|---|---|---|
+| GET | `/tareas` | Obtener todas las tareas |
+| GET | `/tareas/:id` | Obtener una tarea por ID |
+| POST | `/tareas` | Crear una tarea |
+| PUT | `/tareas/:id` | Actualizar una tarea |
+| DELETE | `/tareas/:id` | Eliminar una tarea |
 
-```bash
-json
+### Ejemplo: crear una tarea
+
+`POST /tareas`
+
+```json
 {
   "texto": "Aprender MongoDB"
-}'
+}
 ```
 
-Funcionalidades
+### Ejemplo: actualizar una tarea
 
-Registro/Login de usuarios
+`PUT /tareas/:id`
 
-Autenticación con JWT
+```json
+{
+  "texto": "Practicar consultas con MongoDB"
+}
+```
 
-CRUD completo de tareas
+## Estructura del proyecto
 
-Middleware de errores
+```text
+CRUD-node-mongo/
+├── index.js
+├── middleware/
+│   ├── authMiddleware.js
+│   └── errorHandler.js
+├── models/
+│   ├── tarea.model.js
+│   └── usuario.model.js
+├── routes/
+│   ├── auth.routes.js
+│   └── tarea.routes.js
+├── package.json
+├── package-lock.json
+└── README.md
+```
 
-Rutas protegidas
+## Consideraciones
 
-Validación de datos
+Este proyecto es una implementación de práctica de una API REST con autenticación y persistencia de datos.
 
-Listo para deploy
+Actualmente, las tareas se consultan de manera global: no están asociadas a un usuario específico. Una mejora futura sería relacionar cada tarea con su propietario y restringir el acceso a sus propios registros.
 
-Autor
+## Autor
 
-Juan Carlos Chavez – Desarrollador Backend Jr.
-
-Contacto: jcczcom@gmail.com
-
-LinkedIn https://www.linkedin.com/in/karolu5/
-
-
-
+Desarrollado por [karolu5](https://github.com/karolu5).
